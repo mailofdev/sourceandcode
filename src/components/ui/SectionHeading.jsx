@@ -11,8 +11,8 @@ export default function SectionHeading({
     <div className={centered ? "mx-auto max-w-3xl text-center" : "max-w-3xl text-left"}>
       {eyebrow ? (
         <p
-          className={`text-xs font-semibold uppercase tracking-[0.2em] ${
-            light ? "text-white/75" : "text-blue"
+          className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] ${
+            light ? "glass-dark text-white/85" : "glass text-blue"
           }`}
         >
           {eyebrow}

@@ -22,7 +22,7 @@ export default function HeroSection() {
   const { motto } = config.site;
 
   return (
-    <section id={hero.id} className="relative overflow-hidden text-white">
+    <section id={hero.id} className="relative overflow-hidden pt-24 pb-16 text-white sm:pb-20 lg:pt-28 lg:pb-28">
       <DarkBackdrop />
       <div className="pointer-events-none absolute left-[8%] top-16 hidden text-5xl font-light text-white/10 lg:block" aria-hidden>
         {"</>"}
@@ -31,7 +31,7 @@ export default function HeroSection() {
         {"{ }"}
       </div>
 
-      <Container className="relative py-16 sm:py-20 lg:py-28">
+      <Container className="relative">
         <div className="mx-auto max-w-4xl text-center">
           <p className="glass-dark mx-auto inline-flex rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white/90">
             {hero.eyebrow}

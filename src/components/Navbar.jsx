@@ -12,29 +12,35 @@ export default function Navbar() {
   const [active, setActive] = useState("home");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
     const ids = config.nav.map((item) => item.href.replace("#", ""));
+    let frame = 0;
 
     const update = () => {
-      const marker = 96;
+      frame = 0;
+      const nextScrolled = window.scrollY > 8;
+      setScrolled((prev) => (prev === nextScrolled ? prev : nextScrolled));
+
+      const marker = 80;
       let current = ids[0];
       ids.forEach((id) => {
         const node = document.getElementById(id);
         if (!node) return;
         if (node.getBoundingClientRect().top - marker <= 0) current = id;
       });
-      setActive(current);
+      setActive((prev) => (prev === current ? prev : current));
+    };
+
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(update);
     };
 
     update();
-    window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {
@@ -51,12 +57,13 @@ export default function Navbar() {
   }, [open]);
 
   return (
-    <header
-      className={`sticky top-0 z-50 border-b border-white/80 bg-white/90 backdrop-blur-xl transition-shadow ${
-        scrolled ? "shadow-[0_8px_30px_rgba(16,22,46,0.08)]" : "shadow-none"
-      }`}
-    >
-      <div className="mx-auto flex h-[60px] max-w-6xl items-center justify-between gap-3 px-4 sm:px-6 lg:h-[72px] lg:px-8">
+    <header className="fixed inset-x-0 top-0 z-50">
+      <div
+        className={`glass glass-bar rounded-none transition-shadow ${
+          scrolled ? "shadow-[0_16px_40px_rgba(76,29,149,0.16)]" : ""
+        }`}
+      >
+      <div className="flex h-[60px] items-center justify-between gap-3 px-3 sm:px-4 lg:h-16 lg:px-5">
         <Link href="/#home" className="shrink-0" aria-label={`${config.site.name} home`}>
           <Logo />
         </Link>
@@ -88,7 +95,7 @@ export default function Navbar() {
           </a>
           <button
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/70 bg-white/50 text-navy lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/70 bg-white/45 text-navy shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -102,7 +109,7 @@ export default function Navbar() {
       {open ? (
         <nav
           id="mobile-menu"
-          className="border-t border-white/60 bg-white/80 px-4 py-3 backdrop-blur-xl lg:hidden"
+          className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-white/50 px-3 py-3 lg:hidden"
           aria-label="Mobile"
         >
           <ul className="flex flex-col">
@@ -115,7 +122,7 @@ export default function Navbar() {
                     href={item.href}
                     aria-current={isActive ? "location" : undefined}
                     className={`block rounded-xl px-3 py-3 text-base font-medium ${
-                      isActive ? "bg-white/80 text-navy" : "text-muted"
+                      isActive ? "bg-white/70 text-navy shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]" : "text-muted"
                     }`}
                     onClick={() => setOpen(false)}
                   >
@@ -134,6 +141,7 @@ export default function Navbar() {
           </a>
         </nav>
       ) : null}
+      </div>
     </header>
   );
 }

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import config from "@/config/site.config";
+import DarkBackdrop from "@/components/ui/DarkBackdrop";
 
 function FooterLink({ item }) {
   if (item.external) {
@@ -27,18 +28,20 @@ export default function Footer() {
   const { site, footer } = config;
 
   return (
-    <footer className="relative overflow-hidden bg-[#0d1030] text-white">
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#0d1030] via-[#161432] to-[#2a1b5e]" />
+    <footer className="relative overflow-hidden text-white">
+      <DarkBackdrop />
       <div className="relative mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-1">
-            <Image
-              src={site.logo}
-              alt={`${site.name} logo`}
-              width={220}
-              height={180}
-              className="h-auto w-[180px] rounded-2xl bg-white p-2"
-            />
+            <div className="glass inline-flex rounded-2xl p-2">
+              <Image
+                src={site.logo}
+                alt={`${site.name} logo`}
+                width={220}
+                height={180}
+                className="h-auto w-[168px] rounded-xl"
+              />
+            </div>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/75">
               {site.descriptionLine}
             </p>

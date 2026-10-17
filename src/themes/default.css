@@ -6,7 +6,7 @@
   --color-navy: #141b34;
   --color-ink: #10162e;
   --color-muted: #3e465c;
-  --color-paper: #f6f5f2;
+  --color-paper: #f4f1fb;
   --color-blue: #2196f3;
   --color-teal: #26c6da;
   --color-orange: #fb8c00;
@@ -17,20 +17,16 @@
   html {
     scroll-behavior: smooth;
     color-scheme: light;
+    background-color: #ebe6f8;
   }
 
   body {
-    @apply min-h-screen bg-paper text-navy antialiased;
-    background-image:
-      radial-gradient(900px 520px at -8% -10%, rgba(33, 150, 243, 0.16), transparent 58%),
-      radial-gradient(760px 480px at 108% 0%, rgba(123, 47, 247, 0.12), transparent 52%),
-      radial-gradient(680px 420px at 88% 100%, rgba(251, 140, 0, 0.12), transparent 50%),
-      radial-gradient(520px 360px at 10% 80%, rgba(38, 198, 218, 0.1), transparent 50%);
-    background-attachment: fixed;
+    @apply min-h-screen text-navy antialiased;
+    background: transparent;
   }
 
   section[id] {
-    scroll-margin-top: 5.5rem;
+    scroll-margin-top: 5rem;
   }
 
   :focus-visible {
@@ -55,37 +51,91 @@
 
 @layer utilities {
   .glass {
-    background: rgba(255, 255, 255, 0.62);
-    border: 1px solid rgba(255, 255, 255, 0.74);
+    position: relative;
+    background: linear-gradient(165deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.78));
+    border: 1px solid rgba(255, 255, 255, 0.66);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.75),
-      0 10px 36px rgba(16, 22, 46, 0.08);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+      inset 0 1px 0 rgba(255, 255, 255, 0.92),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.28),
+      0 18px 50px rgba(36, 24, 86, 0.1);
+  }
+
+  .glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(33, 150, 243, 0.55),
+      rgba(38, 198, 218, 0.35) 28%,
+      rgba(255, 255, 255, 0.7) 48%,
+      rgba(251, 140, 0, 0.45) 72%,
+      rgba(123, 47, 247, 0.55)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .glass.glass-bar {
+    background-color: #f7f5ff;
+    background-image: none;
   }
 
   .glass-dark {
-    background: rgba(255, 255, 255, 0.09);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    position: relative;
+    background: linear-gradient(165deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    border: 1px solid rgba(255, 255, 255, 0.22);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.2),
-      0 14px 40px rgba(0, 0, 0, 0.22);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+      inset 0 1px 0 rgba(255, 255, 255, 0.32),
+      0 18px 48px rgba(0, 0, 0, 0.28);
+  }
+
+  .glass-dark::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      140deg,
+      rgba(255, 255, 255, 0.7),
+      rgba(38, 198, 218, 0.35) 30%,
+      rgba(255, 255, 255, 0.08) 50%,
+      rgba(251, 140, 0, 0.4) 74%,
+      rgba(167, 139, 250, 0.7)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
   }
 
   .glass-card {
     transition:
       transform 0.25s ease,
-      box-shadow 0.25s ease,
-      border-color 0.25s ease;
+      box-shadow 0.25s ease;
   }
 
   .glass-card:hover {
     transform: translateY(-4px);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.8),
-      0 18px 44px rgba(16, 22, 46, 0.12);
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      0 22px 50px rgba(123, 47, 247, 0.16),
+      0 8px 24px rgba(33, 150, 243, 0.1);
   }
 
   .gradient-text {
@@ -100,20 +150,27 @@
     width: 4.5rem;
     border-radius: 999px;
     background-image: linear-gradient(90deg, #2196f3, #26c6da, #fb8c00, #7b2ff7);
+    box-shadow: 0 0 16px rgba(123, 47, 247, 0.35);
   }
 
   .btn-primary {
+    position: relative;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
     min-height: 44px;
     padding: 0.7rem 1.3rem;
     border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.38);
     color: #fff;
     font-weight: 600;
     line-height: 1.2;
-    background-image: linear-gradient(105deg, #1565c0 0%, #00796b 36%, #ef6c00 68%, #6a1b9a 100%);
-    box-shadow: 0 10px 24px rgba(21, 101, 192, 0.28);
+    background-image:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.32), transparent 46%),
+      linear-gradient(105deg, #1565c0 0%, #00796b 36%, #ef6c00 68%, #6a1b9a 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.45),
+      0 12px 28px rgba(106, 27, 154, 0.28);
     transition:
       transform 0.2s ease,
       box-shadow 0.2s ease,
@@ -123,7 +180,9 @@
   .btn-primary:hover {
     transform: translateY(-2px);
     filter: brightness(1.06);
-    box-shadow: 0 14px 28px rgba(106, 27, 154, 0.28);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      0 16px 32px rgba(33, 150, 243, 0.28);
   }
 
   .btn-ghost {
@@ -136,10 +195,9 @@
     font-weight: 600;
     line-height: 1.2;
     color: #fff;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.38);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
     transition:
       transform 0.2s ease,
       background-color 0.2s ease;
@@ -147,15 +205,16 @@
 
   .btn-ghost:hover {
     transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.18);
   }
 
   .field {
     width: 100%;
     border-radius: 0.9rem;
-    border: 1px solid rgba(20, 27, 52, 0.12);
-    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.92);
     color: #141b34;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
     transition:
       border-color 0.2s ease,
       box-shadow 0.2s ease;
@@ -167,9 +226,44 @@
 
   .field:focus {
     outline: none;
-    border-color: #2196f3;
-    box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.18);
+    border-color: #7b2ff7;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      0 0 0 4px rgba(123, 47, 247, 0.16);
   }
+}
+
+.mesh-bg,
+.dark-mesh {
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.mesh-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 50% 38%, rgba(255, 255, 255, 0.55), transparent 62%),
+    radial-gradient(38% 34% at 10% 12%, rgba(56, 189, 248, 0.85), transparent 68%),
+    radial-gradient(36% 32% at 90% 8%, rgba(167, 139, 250, 0.8), transparent 66%),
+    radial-gradient(34% 32% at 84% 82%, rgba(251, 146, 60, 0.75), transparent 68%),
+    radial-gradient(32% 30% at 12% 88%, rgba(45, 212, 191, 0.75), transparent 68%),
+    radial-gradient(26% 24% at 48% 46%, rgba(244, 114, 182, 0.5), transparent 70%),
+    linear-gradient(145deg, #efe9ff 0%, #e4f2ff 46%, #fff1e4 100%);
+}
+
+.dark-mesh {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(90% 55% at -10% 18%, #1d4ed8 0%, transparent 58%),
+    radial-gradient(85% 50% at 110% 8%, #7e22ce 0%, transparent 56%),
+    radial-gradient(70% 45% at 85% 88%, #c2410c 0%, transparent 58%),
+    radial-gradient(75% 48% at 0% 92%, #0f766e 0%, transparent 58%),
+    radial-gradient(55% 40% at 55% 48%, #6d28d9 0%, transparent 62%),
+    radial-gradient(ellipse at 50% 46%, rgba(9, 13, 34, 0.2), rgba(9, 13, 34, 0.45) 72%),
+    #090d22;
 }
 
 @import "./modern.css";
