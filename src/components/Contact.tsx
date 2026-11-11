@@ -1,10 +1,33 @@
 import { useState } from "react";
 import { MapPin, Globe, Linkedin, Github, ArrowRight } from "lucide-react";
+import { CONTACT_EMAIL, MENTOR_URL, WEB3FORMS_ACCESS_KEY } from "../config/site";
+import { submitSiteContact } from "../lib/contactSubmit";
+import { isWeb3FormsConfigured } from "../utils/web3forms";
 import { SectionHeader } from "./SectionHeader";
 import { Reveal } from "./Reveal";
 
+type FieldErrors = {
+  name?: string;
+  email?: string;
+  message?: string;
+};
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function validateContact(fields: { name: string; email: string; message: string }): FieldErrors {
+  const errors: FieldErrors = {};
+  if (!fields.name.trim()) errors.name = "Name is required.";
+  if (!fields.email.trim()) errors.email = "Email is required.";
+  else if (!EMAIL_PATTERN.test(fields.email.trim())) errors.email = "Enter a valid email.";
+  if (!fields.message.trim()) errors.message = "Message is required.";
+  return errors;
+}
+
 export function Contact() {
-  const [sent, setSent] = useState(false);
+  const formReady = isWeb3FormsConfigured(WEB3FORMS_ACCESS_KEY);
+  const [status, setStatus] = useState<"idle" | "submitting" | "sent" | "error">("idle");
+  const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
 
   return (
     <section id="contact" className="overflow-x-clip bg-background py-16 sm:py-20 lg:py-24">
@@ -69,15 +92,61 @@ export function Contact() {
         <div className="rounded-2xl border border-navy/10 bg-white p-5 shadow-sm sm:p-8">
           <h3 className="mb-6 font-heading text-lg font-bold text-navy">Send Us a Message</h3>
           <p className="mb-6 text-sm leading-relaxed text-slate-600">
-            Share your background and when you’d like to start. We’ll reply with the current batch details once this inbox is connected. Until then, use the mentor site above.
+            {formReady
+              ? "Share your background and when you’d like to start. We’ll reply with the current batch details."
+              : "Share your background and when you’d like to start. This inbox isn’t connected yet, so please use the mentor site until then."}
           </p>
           <form
-            className="space-y-4"
-            onSubmit={(event) => {
+            className="relative space-y-4"
+            noValidate
+            onSubmit={async (event) => {
               event.preventDefault();
-              setSent(true);
+              const form = event.currentTarget;
+              const data = new FormData(form);
+              const fields = {
+                name: String(data.get("name") ?? ""),
+                email: String(data.get("email") ?? ""),
+                phone: String(data.get("phone") ?? ""),
+                message: String(data.get("message") ?? ""),
+                botcheck: String(data.get("botcheck") ?? ""),
+              };
+              const nextFieldErrors = validateContact(fields);
+              setFieldErrors(nextFieldErrors);
+              if (Object.keys(nextFieldErrors).length > 0) {
+                setStatus("idle");
+                setError(null);
+                return;
+              }
+
+              if (!formReady) {
+                setStatus("error");
+                setError("Contact form is not configured.");
+                return;
+              }
+
+              setStatus("submitting");
+              setError(null);
+              const result = await submitSiteContact(fields);
+              if (result.ok) {
+                form.reset();
+                setStatus("sent");
+                return;
+              }
+              setStatus("error");
+              setError(result.error);
             }}
           >
+            <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden opacity-0">
+              <label htmlFor="contact-botcheck">Company</label>
+              <input
+                id="contact-botcheck"
+                name="botcheck"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                defaultValue=""
+              />
+            </div>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label htmlFor="contact-name" className="sr-only">Name</label>
@@ -87,8 +156,15 @@ export function Contact() {
                   type="text"
                   autoComplete="name"
                   placeholder="Name"
+                  maxLength={120}
+                  required
+                  aria-invalid={fieldErrors.name ? true : undefined}
+                  aria-describedby={fieldErrors.name ? "contact-name-error" : undefined}
                   className="w-full rounded-xl border border-navy/10 bg-white px-4 py-3 text-base focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400"
                 />
+                {fieldErrors.name && (
+                  <p id="contact-name-error" className="mt-1 text-sm text-red-600">{fieldErrors.name}</p>
+                )}
               </div>
               <div>
                 <label htmlFor="contact-email" className="sr-only">Email</label>
@@ -98,8 +174,15 @@ export function Contact() {
                   type="email"
                   autoComplete="email"
                   placeholder="Email"
+                  maxLength={254}
+                  required
+                  aria-invalid={fieldErrors.email ? true : undefined}
+                  aria-describedby={fieldErrors.email ? "contact-email-error" : undefined}
                   className="w-full rounded-xl border border-navy/10 bg-white px-4 py-3 text-base focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400"
                 />
+                {fieldErrors.email && (
+                  <p id="contact-email-error" className="mt-1 text-sm text-red-600">{fieldErrors.email}</p>
+                )}
               </div>
             </div>
             <div>
@@ -110,6 +193,7 @@ export function Contact() {
                 type="tel"
                 autoComplete="tel"
                 placeholder="Phone"
+                maxLength={40}
                 className="w-full rounded-xl border border-navy/10 bg-white px-4 py-3 text-base focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400"
               />
             </div>
@@ -120,20 +204,53 @@ export function Contact() {
                 name="message"
                 rows={4}
                 placeholder="Message"
+                maxLength={8000}
+                required
+                aria-invalid={fieldErrors.message ? true : undefined}
+                aria-describedby={fieldErrors.message ? "contact-message-error" : undefined}
                 className="w-full rounded-xl border border-navy/10 bg-white px-4 py-3 text-base focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-400"
               />
+              {fieldErrors.message && (
+                <p id="contact-message-error" className="mt-1 text-sm text-red-600">{fieldErrors.message}</p>
+              )}
             </div>
             <button
               type="submit"
-              className="min-h-12 w-full rounded-xl bg-gradient-to-r from-sky-400 via-indigo-500 to-violet-500 px-6 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5"
+              disabled={status === "submitting"}
+              className="min-h-12 w-full rounded-xl bg-gradient-to-r from-sky-400 via-indigo-500 to-violet-500 px-6 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
             >
-              Send Message
+              {status === "submitting" ? "Sending…" : "Send Message"}
             </button>
-            {sent && (
+            {status === "sent" && (
               <p className="text-sm leading-relaxed text-navy" role="status">
-                Thanks. This form is not connected to an inbox yet, so please also reach out through siddhantgadakh.in.
+                Thanks. We’ll reply with the current batch details.
               </p>
             )}
+            {status === "error" && error && (
+              <p className="text-sm leading-relaxed text-red-600" role="alert">
+                {error}{" "}
+                {CONTACT_EMAIL ? (
+                  <>
+                    You can also email us at{" "}
+                    <a href={`mailto:${CONTACT_EMAIL}`} className="font-medium underline">
+                      {CONTACT_EMAIL}
+                    </a>
+                    .
+                  </>
+                ) : (
+                  <>
+                    You can also reach us through{" "}
+                    <a href={MENTOR_URL} target="_blank" rel="noopener noreferrer" className="font-medium underline">
+                      siddhantgadakh.in
+                    </a>
+                    .
+                  </>
+                )}
+              </p>
+            )}
+            <p className="text-xs leading-relaxed text-slate-500">
+              Your name, email, phone, and message are sent through Web3Forms so we can reply. Web3Forms’ privacy terms apply to that delivery.
+            </p>
           </form>
         </div>
 
