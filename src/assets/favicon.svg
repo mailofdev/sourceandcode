@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" rx="8" fill="#141B34"/>
+  <text x="16" y="22" fontFamily="Montserrat, Poppins, sans-serif" fontSize="20" fontWeight="900" fill="url(#grad)" textAnchor="middle" dominantBaseline="middle">S</text>
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stopColor="#29A8E0"/>
+      <stop offset="40%" stopColor="#26C6DA"/>
+      <stop offset="70%" stopColor="#FB8C00"/>
+      <stop offset="100%" stopColor="#7B2FF7"/>
+    </linearGradient>
+  </defs>
+  <path d="M14 28h4v4h-4z" fill="#29A8E0"/>
+</svg>

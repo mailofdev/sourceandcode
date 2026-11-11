@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* All values are valid HSL triplets (H S% L%) — consumed via hsl(var(--x)) */
+    --background: 60 20% 98%;        /* warm off-white #FAFAF8 */
+    --foreground: 228 45% 12%;       /* deep navy #10162E */
+
+    --card: 0 0% 100%;
+    --card-foreground: 228 45% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 228 45% 12%;
+
+    --primary: 256 78% 56%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 228 45% 12%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 200 89% 52%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 256 78% 56%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 228 45% 7%;
+    --foreground: 60 20% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+  ::selection {
+    background: linear-gradient(135deg, #38BDF8 0%, #8B5CF6 100%);
+    color: #fff;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Poppins", "Montserrat", system-ui, sans-serif;
+    color: hsl(var(--foreground));
+  }
+  html {
+    scroll-padding-top: 84px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  /* Smooth sky → indigo → violet accent — calm & aesthetic */
+  .text-gradient {
+    background: linear-gradient(115deg, #38BDF8 0%, #6366F1 52%, #8B5CF6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .text-gradient-warm {
+    background: linear-gradient(115deg, #38BDF8 0%, #22D3EE 45%, #8B5CF6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .glass-navbar {
+    background: rgba(250, 248, 248, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(20, 27, 52, 0.08);
+  }
+  .glass-navbar.scrolled {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 8px 32px -4px rgba(16, 22, 46, 0.08);
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .icon-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-navy/10 bg-white shadow-[0_2px_14px_-6px_rgba(16,22,46,0.12)] transition-all duration-300;
+  }
+  .card:hover {
+    @apply -translate-y-1.5 shadow-[0_18px_40px_-18px_rgba(16,22,46,0.28)] border-blue-300/60;
+  }
+  .icon-tile {
+    @apply inline-flex items-center justify-center rounded-xl w-12 h-12 shrink-0 transition-transform duration-300;
+  }
+  .group:hover .icon-tile {
+    transform: scale(1.08) rotate(-3deg);
+  }
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold;
+  }
+  .btn-gradient {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-bold text-white
+      bg-[linear-gradient(115deg,#38BDF8_0%,#6366F1_55%,#8B5CF6_100%)]
+      bg-[length:200%_auto] hover:bg-right bg-[position:0%_50%]
+      shadow-[0_10px_30px_-12px_rgba(99,102,241,0.55)]
+      hover:shadow-[0_16px_38px_-12px_rgba(99,102,241,0.65)] hover:-translate-y-0.5
+      transition-all duration-300;
+  }
+  .btn-glass {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-semibold text-white
+      border border-white/30 bg-white/10 backdrop-blur-md
+      hover:bg-white/20 hover:border-white/50 hover:-translate-y-0.5 transition-all duration-300;
+  }
+  .glass {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+  }
+}
+
+@layer utilities {
+  .animate-marquee {
+    animation: marquee 32s linear infinite;
+  }
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
