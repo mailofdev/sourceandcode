@@ -1,6 +1,8 @@
 node_modules
 dist
 build
+.next
+dev-server.log
 .env
 .env.local
 .env.development.local

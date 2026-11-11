@@ -15,11 +15,11 @@ const faqs = [
   },
   {
     q: "How long is the batch?",
-    a: "The full syllabus spans roughly 4–5 months, followed by self-paced project work. [TODO: confirm exact batch duration & schedule]",
+    a: "The full syllabus spans roughly 4–5 months, followed by self-paced project work.",
   },
   {
     q: "Are sessions live or recorded?",
-    a: "Live interactive sessions with mentors. [TODO: confirm recording policy]",
+    a: "Sessions are live and interactive with mentors, so you can ask questions as you learn.",
   },
   {
     q: "Which tools will I learn?",
@@ -31,11 +31,11 @@ const faqs = [
   },
   {
     q: "What is the fee?",
-    a: "[TODO: add fee, installment options, EMI]",
+    a: "Fee and installment options are shared when you enquire. Send a message and we’ll walk you through the current batch.",
   },
   {
     q: "When does the next batch start?",
-    a: "[TODO: add next batch start date]",
+    a: "The next start date is confirmed with each enquiry. Reach out and we’ll share the upcoming batch schedule.",
   },
 ];
 
@@ -43,7 +43,7 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-24 bg-background relative overflow-hidden">
+    <section id="faq" className="relative overflow-hidden bg-background py-16 sm:py-20 lg:py-24">
       {/* soft background decoration */}
       <div className="absolute top-24 -left-32 w-72 h-72 rounded-full bg-blue-500/5 blur-3xl pointer-events-none" />
       <div className="absolute bottom-24 -right-32 w-72 h-72 rounded-full bg-purple-500/5 blur-3xl pointer-events-none" />
@@ -55,7 +55,7 @@ export function FAQ() {
         subtitle="Have questions about the batch, syllabus, or enrollment? We're here to help."
       />
 
-      <div className="mt-16 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3">
+      <div className="mx-auto mt-10 max-w-3xl space-y-3 px-4 sm:mt-14 sm:px-6 lg:px-8">
         {faqs.map(({ q, a }, i) => {
           const isOpen = openIndex === i;
           return (
@@ -73,9 +73,9 @@ export function FAQ() {
                   onClick={() => setOpenIndex(isOpen ? null : i)}
                   aria-expanded={isOpen}
                   aria-controls={`faq-panel-${i}`}
-                  className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60 rounded-2xl"
+                  className="flex w-full items-start justify-between gap-3 rounded-2xl px-4 py-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60 sm:items-center sm:gap-4 sm:px-6 sm:py-5"
                 >
-                  <span className="flex items-center gap-3.5">
+                  <span className="flex min-w-0 items-start gap-3 sm:items-center sm:gap-3.5">
                     <span
                       className={cn(
                         "shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-[11px] font-bold transition-colors",
@@ -88,7 +88,7 @@ export function FAQ() {
                     </span>
                     <span
                       className={cn(
-                        "font-heading font-bold text-sm sm:text-base transition-colors",
+                        "min-w-0 text-left font-heading text-sm font-bold transition-colors sm:text-base",
                         isOpen ? "text-gradient" : "text-navy",
                       )}
                     >
@@ -111,7 +111,7 @@ export function FAQ() {
                   )}
                 >
                   <div className="overflow-hidden">
-                    <p className="px-6 pb-5 pl-16 text-slate-600 text-sm leading-relaxed border-t border-navy/5 pt-4">
+                    <p className="border-t border-navy/5 px-4 pb-5 pt-4 text-sm leading-relaxed text-slate-600 sm:px-6 sm:pl-16">
                       {a}
                     </p>
                   </div>
@@ -124,7 +124,7 @@ export function FAQ() {
 
       <Reveal delay={0.2} y={20}>
         <div className="mt-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-2xl border border-navy/10 bg-gradient-to-r from-sky-50 via-indigo-50 to-violet-50 p-6 sm:p-7 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
+          <div className="flex flex-col items-center gap-5 rounded-2xl border border-navy/10 bg-gradient-to-r from-sky-50 via-indigo-50 to-violet-50 p-5 text-center sm:flex-row sm:p-7 sm:text-left">
             <div className="shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-r from-sky-400 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/25">
               <HelpCircle className="w-6 h-6 text-white" />
             </div>
@@ -136,7 +136,7 @@ export function FAQ() {
             </div>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-navy text-white text-sm font-semibold hover:bg-gradient-to-r hover:from-blue-500 hover:via-teal-500 hover:to-purple-600 transition-all shrink-0"
+              className="inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-navy px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-gradient-to-r hover:from-blue-500 hover:via-teal-500 hover:to-purple-600 sm:w-auto"
             >
               Ask a Question <Sparkles className="w-3.5 h-3.5" />
             </a>

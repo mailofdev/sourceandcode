@@ -32,7 +32,7 @@ const solutions = [
 
 export function Solutions() {
   return (
-    <section id="solutions" className="py-24 bg-background">
+    <section id="solutions" className="overflow-x-clip bg-background py-16 sm:py-20 lg:py-24">
       <SectionHeader
         eyebrow="We Understand the Struggle"
         title="From Confusion to Clarity"
@@ -40,7 +40,7 @@ export function Solutions() {
         subtitle="Three common challenges aspiring testers face — and how SourceandcodE solves each one."
       />
 
-      <div className="mt-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="mx-auto mt-10 grid max-w-4xl grid-cols-1 gap-4 px-4 sm:mt-14 sm:px-6 sm:gap-6 lg:grid-cols-3 lg:px-8">
         {solutions.map((s, i) => (
           <Reveal key={i} delay={i * 0.1} y={26}>
             <div className="h-full rounded-2xl border border-navy/10 bg-white p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all">

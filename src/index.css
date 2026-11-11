@@ -62,7 +62,7 @@
     color: hsl(var(--foreground));
   }
   html {
-    scroll-padding-top: 84px;
+    scroll-padding-top: calc(5.25rem + env(safe-area-inset-top));
   }
 }
 

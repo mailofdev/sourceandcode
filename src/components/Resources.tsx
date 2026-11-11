@@ -21,7 +21,7 @@ const folders = [
 
 export function Resources() {
   return (
-    <section id="resources" className="py-24 bg-background">
+    <section id="resources" className="overflow-x-clip bg-background py-16 sm:py-20 lg:py-24">
       <SectionHeader
         eyebrow="Code, Notes & Resources"
         title="Free GitHub Access for Every Batch"
@@ -30,53 +30,50 @@ export function Resources() {
       />
 
       <Reveal y={26}>
-        <div className="mt-12 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 rounded-2xl border border-navy/10 bg-white p-8 shadow-sm hover:shadow-md transition-shadow">
-        <div className="flex items-start gap-4 mb-6">
-          <div className="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-600 flex items-center justify-center shrink-0">
-            <Code2 className="w-5 h-5" />
+        <div className="mx-4 mt-10 max-w-3xl rounded-2xl border border-navy/10 bg-white p-5 shadow-sm transition-shadow hover:shadow-md sm:mx-6 sm:mt-12 sm:p-8 lg:mx-auto">
+        <div className="mb-6 flex items-start gap-4">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 text-blue-600">
+            <Code2 className="h-5 w-5" />
           </div>
-          <div>
+          <div className="min-w-0">
             <h3 className="font-heading font-bold text-navy">Official Batch 5 Repository</h3>
             <a
               href="https://github.com/SourceCode-code/Source_and_code_batch_5"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gradient font-medium text-sm hover:underline"
+              className="break-all text-sm font-medium text-gradient hover:underline"
             >
               github.com/SourceCode-code/Source_and_code_batch_5
             </a>
-            <p className="text-slate-500 text-xs mt-1">"This is the official repo to store Batch 5 code."</p>
+            <p className="mt-1 text-xs text-slate-500">"This is the official repo to store Batch 5 code."</p>
           </div>
         </div>
         <a
           href="https://github.com/SourceCode-code/Source_and_code_batch_5"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-sky-400 via-indigo-500 to-violet-500 text-white font-semibold shadow-lg hover:scale-105 transition-transform"
+          className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-sky-400 via-indigo-500 to-violet-500 px-6 py-3 font-semibold text-white shadow-lg transition-transform hover:-translate-y-0.5 sm:w-auto"
         >
-          Open GitHub Repo <GitBranch className="w-4 h-4" />
+          Open GitHub Repo <GitBranch className="h-4 w-4" />
         </a>
-        <p className="mt-6 text-xs text-slate-500 italic max-w-lg mx-auto">
-          [TODO: update repo link for future batches, or use an organization-level landing repo]
-        </p>
         </div>
       </Reveal>
 
-      <div className="mt-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="mx-auto mt-10 max-w-5xl px-4 sm:mt-14 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {folders.map((f, i) => (
             <div
               key={i}
               className={cn(
-                "rounded-xl border border-navy/10 bg-white p-4 text-center hover:border-gradient hover:shadow-sm transition-all",
+                "min-w-0 rounded-xl border border-navy/10 bg-white p-4 text-left transition-all hover:shadow-sm sm:text-center",
                 i % 4 === 0 ? "bg-navy/5" : "",
               )}
             >
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <Folder className="w-4 h-4 text-slate-400" />
-                <span className="text-[10px] font-medium text-slate-600 uppercase tracking-tighter">{f.name}</span>
+              <div className="mb-2 flex items-start justify-start gap-2 sm:items-center sm:justify-center">
+                <Folder className="mt-0.5 h-4 w-4 shrink-0 text-slate-400" />
+                <span className="break-words text-[11px] font-semibold uppercase leading-snug tracking-tight text-slate-600">{f.name}</span>
               </div>
-              <p className="text-xs text-slate-500 leading-tight">{f.desc}</p>
+              <p className="text-xs leading-snug text-slate-500">{f.desc}</p>
               <CheckCircle className="w-3 h-3 text-green-500 mt-2 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
           ))}

@@ -33,7 +33,7 @@ const techStack = ["JavaScript", "TypeScript", "Playwright", "Cypress", "Git & G
 
 export function WhyUs() {
   return (
-    <section id="why-us" className="py-24 bg-navy/5">
+    <section id="why-us" className="overflow-x-clip bg-navy/5 py-16 sm:py-20 lg:py-24">
       <SectionHeader
         eyebrow="Your Path to Success"
         title="Why SourceandcodE"
@@ -41,7 +41,7 @@ export function WhyUs() {
         subtitle="SourceandcodE is meticulously crafted to bridge the gap between learning and employability. We provide a holistic approach that guarantees practical experience and career readiness."
       />
 
-      <div className="mt-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-4 px-4 sm:mt-14 sm:px-6 sm:gap-8 md:grid-cols-2 lg:px-8">
         {pillars.map((p, i) => (
           <Reveal key={i} delay={i * 0.1} y={26}>
             <div className="h-full rounded-2xl border border-navy/10 bg-white p-6 shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-gradient transition-all group">
@@ -67,7 +67,7 @@ export function WhyUs() {
           </div>
         </Reveal>
         <Reveal delay={0.2} y={20}>
-          <p className="text-slate-600 leading-relaxed text-lg">
+          <p className="text-base leading-relaxed text-slate-600 sm:text-lg">
             Our unique methodology ensures you gain not just knowledge, but the confidence and practical
             skills essential for a successful career.
           </p>

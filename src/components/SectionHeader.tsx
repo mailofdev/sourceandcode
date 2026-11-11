@@ -19,16 +19,18 @@ export function SectionHeader({
   variant = "light",
 }: SectionHeaderProps) {
   const gradientPart = titleGradientPart || title.split(" ").pop() || title;
-  const nonGradientPart = title.replace(gradientPart, "").trim();
+  const splitAt = title.indexOf(gradientPart);
+  const before = splitAt >= 0 ? title.slice(0, splitAt) : title;
+  const after = splitAt >= 0 ? title.slice(splitAt + gradientPart.length) : "";
 
   const isDark = variant === "dark";
 
   return (
-    <div className={cn("mb-12", className)}>
-      <Reveal delay={0} y={24} className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
+    <div className={cn("mb-8 sm:mb-12", className)}>
+      <Reveal delay={0} y={24} className="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
         <span
           className={cn(
-            "inline-block mb-4 px-4 py-1.5 rounded-full font-semibold text-[11px] tracking-[0.18em] uppercase border",
+            "mb-4 inline-block max-w-full whitespace-normal rounded-full border px-3 py-1.5 text-[10px] font-semibold uppercase leading-snug tracking-[0.12em] sm:px-4 sm:text-[11px] sm:tracking-[0.16em]",
             isDark
               ? "bg-white/10 border-white/15 text-white/90 backdrop-blur-sm"
               : "bg-gradient-to-r from-blue-500/10 to-purple-500/10 text-slate-600 border-blue-500/20",
@@ -38,17 +40,18 @@ export function SectionHeader({
         </span>
         <h2
           className={cn(
-            "mt-1 text-[2rem] md:text-5xl font-extrabold tracking-tight leading-[1.1]",
+            "mt-1 text-balance text-[1.65rem] font-extrabold leading-[1.15] tracking-tight sm:text-4xl md:text-5xl",
             isDark ? "text-white" : "text-navy",
           )}
         >
-          {nonGradientPart ? <span>{nonGradientPart} </span> : null}
+          {before}
           <span className="text-gradient">{gradientPart}</span>
+          {after}
         </h2>
         {subtitle && (
           <p
             className={cn(
-              "mt-5 text-base md:text-lg max-w-2xl mx-auto leading-relaxed",
+              "mx-auto mt-4 max-w-2xl px-1 text-sm leading-relaxed sm:text-base md:text-lg",
               isDark ? "text-white/70" : "text-slate-500",
             )}
           >

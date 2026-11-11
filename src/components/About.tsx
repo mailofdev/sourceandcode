@@ -9,7 +9,7 @@ const aboutCopy = [
 
 export function About() {
   return (
-    <section id="about" className="py-24 bg-background">
+    <section id="about" className="overflow-x-clip bg-background py-16 sm:py-20 lg:py-24">
       <SectionHeader
         eyebrow="About SourceandcodE"
         title="Bridge the Gap Between Learning & Employability"
@@ -17,7 +17,7 @@ export function About() {
         subtitle="A career-focused training institute for aspiring automation testers and software engineers."
       />
 
-      <div className="mt-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="mx-auto mt-10 grid max-w-5xl grid-cols-1 items-center gap-8 px-4 sm:mt-14 sm:px-6 sm:gap-12 lg:grid-cols-2 lg:px-8">
         <Reveal y={28} className="space-y-6">
           {aboutCopy.map((para, i) => (
             <p key={i} className="text-slate-600 leading-relaxed">
@@ -29,7 +29,7 @@ export function About() {
         <Reveal delay={0.15} y={30} className="relative">
           <div className="relative rounded-2xl overflow-hidden border border-navy/10 shadow-xl">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-teal-500/10 to-purple-500/20" />
-            <div className="relative p-8 sm:p-12 bg-white/80 backdrop-blur-md">
+            <div className="relative bg-white/80 p-6 backdrop-blur-md sm:p-10">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 rounded-2xl bg-navy flex items-center justify-center text-white shadow-lg">
                   <Building2 className="w-6 h-6" />
@@ -48,15 +48,15 @@ export function About() {
               >
                 Visit siddhantgadakh.in <span>→</span>
               </a>
-              <div className="mt-6 pt-6 border-t border-navy/10 flex flex-wrap gap-3 text-xs font-medium text-slate-500">
+              <div className="mt-6 flex flex-col gap-2 border-t border-navy/10 pt-6 text-xs font-medium text-slate-500 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
                 <span className="flex items-center gap-1">
                   <Users className="w-3 h-3" /> 200+ students trained
                 </span>
-                <span className="w-px h-3 bg-navy/20" />
+                <span className="hidden h-3 w-px bg-navy/20 sm:block" />
                 <span className="flex items-center gap-1">
                   <GraduationCap className="w-3 h-3" /> B.E. Mechanical Engineering
                 </span>
-                <span className="w-px h-3 bg-navy/20" />
+                <span className="hidden h-3 w-px bg-navy/20 sm:block" />
                 <span className="flex items-center gap-1">
                   <ShieldCheck className="w-3 h-3" /> Pune, India
                 </span>

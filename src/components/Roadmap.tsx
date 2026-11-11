@@ -30,7 +30,7 @@ const modules = [
 
 export function Roadmap() {
   return (
-    <section id="roadmap" className="py-24 bg-background">
+    <section id="roadmap" className="overflow-x-clip bg-background py-16 sm:py-20 lg:py-24">
       <SectionHeader
         eyebrow="Your Roadmap to Becoming an Automation Tester"
         title="A Guided Learning Path, Module by Module"
@@ -39,27 +39,19 @@ export function Roadmap() {
         className="mb-16"
       />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative mx-4">
-          <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-navy/20" />
-          {modules.map((mod, i) => {
-            const isLast = i === modules.length - 1;
-            return (
-              <div key={i} className="relative pl-16 mb-12 group">
-                <div className="absolute left-0 top-2 w-3 h-3 rounded-full bg-gradient-to-r from-sky-400 to-violet-500 shadow-lg ring-2 ring-white" />
-                <span className="absolute -left-4 -top-1 text-[10px] font-bold text-navy/60 uppercase tracking-widest">
-                  {mod.no}
-                </span>
-                <div className="rounded-xl border border-navy/10 bg-white p-5 shadow-sm hover:shadow-md transition-all group-hover:border-gradient group-hover:scale-[1.02]">
-                  <h4 className="font-heading font-bold text-navy">{mod.name}</h4>
-                  <p className="text-xs text-slate-500 mt-1">{mod.duration}</p>
-                </div>
-                {!isLast && (
-                  <div className="absolute left-2 top-6 bottom-6 w-0.5 bg-navy/10" />
-                )}
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div className="relative">
+          <div className="absolute bottom-2 left-2 top-2 w-px -translate-x-1/2 bg-navy/15" />
+          {modules.map((mod) => (
+            <div key={mod.no} className="relative mb-4 pl-8 last:mb-0 sm:mb-5 sm:pl-10">
+              <span className="absolute left-2 top-5 h-3 w-3 -translate-x-1/2 rounded-full bg-gradient-to-r from-sky-400 to-violet-500 shadow-lg ring-2 ring-white" />
+              <div className="rounded-xl border border-navy/10 bg-white p-4 shadow-sm transition-shadow hover:shadow-md sm:p-5">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-navy/50">{mod.no}</p>
+                <h4 className="font-heading text-[15px] font-bold text-navy sm:text-base">{mod.name}</h4>
+                <p className="mt-1 text-xs text-slate-500">{mod.duration}</p>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
 
         <div className="mt-16 flex flex-wrap justify-center gap-3 text-center">
@@ -75,9 +67,6 @@ export function Roadmap() {
             </div>
           ))}
         </div>
-        <p className="mt-6 text-center text-xs text-slate-500 max-w-md mx-auto italic">
-          [TODO: confirm final module order & durations for Batch 5]
-        </p>
       </div>
     </section>
   );

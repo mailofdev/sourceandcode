@@ -15,7 +15,7 @@ import { Footer } from "./components/Footer";
 
 export function App() {
   return (
-    <div className="min-h-screen bg-background text-navy selection:bg-blue-100 selection:text-navy">
+    <div className="min-h-screen overflow-x-clip bg-background text-navy selection:bg-blue-100 selection:text-navy">
       <Navbar />
       <main>
         <Hero />

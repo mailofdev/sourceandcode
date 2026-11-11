@@ -13,9 +13,9 @@ const rules = [
   { no: 8, text: "Participate in hackathons and mock interviews.", icon: Users },
 ];
 
-function Code2Placeholder() {
+function Code2Placeholder({ className }: { className?: string }) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <polyline points="16 18 22 12 16 6" />
       <polyline points="8 6 2 12 8 18" />
     </svg>
@@ -24,9 +24,8 @@ function Code2Placeholder() {
 
 export function Rules() {
   return (
-    <section id="rules" className="py-24 relative overflow-hidden">
+    <section id="rules" className="relative overflow-hidden py-16 sm:py-20 lg:py-24">
       <div className="absolute inset-0 bg-gradient-to-br from-navy via-[#1a1d3a] to-[#2a1b5e]" />
-      <div className="absolute inset-0 opacity-20 bg-[url('https://gist.githubusercontent.com/assets/dots')] pointer-events-none" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
@@ -38,11 +37,11 @@ export function Rules() {
           className="mb-16"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {rules.map((rule, i) => (
             <Reveal key={rule.no} delay={i * 0.06} y={20}>
               <div
-                className="h-full rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 hover:border-white/20 transition-all flex items-start gap-4"
+                className="flex h-full items-start gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 transition-all hover:border-white/20 hover:bg-white/10 sm:p-6"
               >
                 <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-sky-400 to-violet-500 flex items-center justify-center text-white shrink-0 shadow-lg shadow-indigo-900/40">
                   <rule.icon className="w-5 h-5" />
@@ -57,9 +56,6 @@ export function Rules() {
             </Reveal>
           ))}
         </div>
-        <p className="mt-8 text-center text-white/60 text-xs italic max-w-xl mx-auto">
-          [TODO: client to provide final rules text]
-        </p>
       </div>
     </section>
   );

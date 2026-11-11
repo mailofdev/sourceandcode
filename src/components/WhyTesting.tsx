@@ -32,7 +32,7 @@ const cards = [
 
 export function WhyTesting() {
   return (
-    <section id="why-testing" className="py-24 bg-navy/5">
+    <section id="why-testing" className="overflow-x-clip bg-navy/5 py-16 sm:py-20 lg:py-24">
       <SectionHeader
         eyebrow="Why Automation Testing"
         title="Why Automation Testing is a Hot Career"
@@ -40,7 +40,7 @@ export function WhyTesting() {
         subtitle="Automation Testers earn up to 2x more than manual testers. The software industry is booming — and as companies adopt agile and DevOps, the need for efficient automated testing becomes paramount."
       />
 
-      <div className="mt-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-4 px-4 sm:mt-14 sm:grid-cols-2 sm:gap-6 sm:px-6 lg:grid-cols-4 lg:px-8">
         {cards.map((card, i) => (
           <Reveal key={i} delay={i * 0.08} y={26}>
             <div
@@ -60,14 +60,13 @@ export function WhyTesting() {
       </div>
 
       <Reveal delay={0.3} y={24}>
-        <div className="mt-16 max-w-2xl mx-auto px-4 text-center bg-white rounded-2xl border border-navy/10 p-8 shadow-sm">
-          <p className="text-slate-600 leading-relaxed italic text-lg">
+        <div className="mx-4 mt-10 max-w-2xl rounded-2xl border border-navy/10 bg-white p-5 text-center shadow-sm sm:mx-auto sm:mt-14 sm:p-8">
+          <p className="text-base italic leading-relaxed text-slate-600 sm:text-lg">
             "Position yourself at the forefront of innovation — AI in Testing, Cloud Automation, and Test
             Leadership roles await."
           </p>
-          <p className="mt-4 text-xs text-slate-500">
-            Source points: leveraging AI for predictive analytics, test generation and defect detection;
-            cloud-based test environments for scalability; career path to Test Lead, Architect, and Manager roles.
+          <p className="mt-4 text-xs leading-relaxed text-slate-500">
+            That includes AI for test generation and defect detection, cloud test environments, and a path toward Test Lead, Architect, and Manager roles.
           </p>
         </div>
       </Reveal>
