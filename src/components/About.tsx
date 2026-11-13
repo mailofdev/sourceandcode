@@ -36,7 +36,7 @@ export function About() {
                 </div>
                 <div>
                   <h3 className="font-heading font-bold text-navy text-lg">Siddhant Gadakh</h3>
-                  <p className="text-sm text-gradient font-medium">Founder & Mentor</p>
+                  <p className="text-sm text-gradient font-medium">Co-Founder & Mentor</p>
                 </div>
               </div>
               <p className="text-slate-600 text-sm">Software Test Engineer & Automation Expert</p>
